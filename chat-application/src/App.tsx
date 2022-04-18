@@ -1,10 +1,10 @@
 import React from 'react';
-import ChatList from './components/ChatList';
+import DefaultView from './components/DefaultView';
 
 function App() {
   return (
     <div className=''>
-      <ChatList />
+      <DefaultView />
     </div>
   );
 }
