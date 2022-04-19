@@ -13,8 +13,8 @@ const Chats = () => {
     <div>
       <div className='pl-4 pr-12 py-5 bg-slate-200'>
         <div className='p-8 bg-white font-workSans rounded-modalRadius shadow-lg'>
-          <div className='flex flex-col justify-center'>
-            <div className='flex mx-4 rounded rounded-3xl items-center mb-4 text-gray-700'>
+          <div className='flex flex-col justify-center bg-green-100  rounded-modalRadius mb-6'>
+            <div className='flex mx-4 rounded rounded-3xl items-center text-gray-700'>
               <div className='bg-white ml-4 w-16 h-16 rounded-full flex justify-center items-center border-2 border-green-500 p-1'>
                 <img
                   className='rounded-full bg-blue-100'
@@ -30,11 +30,11 @@ const Chats = () => {
           </div>
 
           <div className='h-chatBody overflow-x-auto'>
-            <div className='mt-6'>
+            <div className='mt-4'>
               {sentMessages.map((_, i: number) => (
                 <div key={i}>
                   <div className='mb-6'>
-                    <div className='flex mx-4 items-end  mb-4'>
+                    <div className='flex mx-4 items-end mb-4'>
                       <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-blue-500 p-1 shadow-xl'>
                         <img
                           className='rounded-full bg-blue-100'
@@ -42,11 +42,14 @@ const Chats = () => {
                           alt='avatar'
                         />
                       </div>
-                      <div className='ml-5 p-5 bg-blue-400 rounded-full w-[65%] text-lg shadow-xl'>
-                        <p className='text-white font-medium'>
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Placeat quasi cum, ut omnis est magni
-                          necessitatibus fugiat hic provident perferendis!
+                      <div className=' bg-blue-400 rounded-full w-[65%] text-lg shadow-xl'>
+                        <p className='ml-5 text-white font-medium p-6'>
+                          Lorem ipsum dolor sit amet consectetur adipisicing
+                          elit. Tempore amet incidunt libero ratione ut ab
+                          nostrum veritatis ex at. Voluptatum, quis ratione iure
+                          natus, et, saepe sed at repellendus ad voluptates
+                          perspiciatis. Cupiditate non, maxime explicabo dolores
+                          debitis porro ad vitae eveniet sint adipisci error
                         </p>
                       </div>
                       <div className='ml-5'>
@@ -66,11 +69,16 @@ const Chats = () => {
                           alt='avatar'
                         />
                       </div>
-                      <div className='p-5 bg-gray-300 rounded-full w-[65%] text-lg shadow-lg'>
-                        <p>
+                      <div className='bg-gray-300 rounded-full w-[65%] text-lg shadow-lg'>
+                        <p className='ml-5 font-medium p-6'>
                           Lorem ipsum dolor, sit amet consectetur adipisicing
                           elit. Placeat quasi cum, ut omnis est magni
                           necessitatibus fugiat hic provident perferendis!
+                          dolor, sit amet consectetur adipisicing elit. Placeat
+                          quasi cum, ut omnis est magni necessitatibus fugiat
+                          hic provident perferendis! dolor, sit amet consectetur
+                          adipisicing elit. Placeat quasi cum, ut omnis est
+                          magni necessitatibus fugiat hic provident perferendis!
                         </p>
                       </div>
                       <div className='mr-5'>

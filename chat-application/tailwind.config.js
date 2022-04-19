@@ -7,7 +7,7 @@ module.exports = {
       },
       height: {
         128: '28.5rem',
-        chatBody: '42rem',
+        chatBody: '41.5rem',
       },
       minWidth: {
         circle: '5rem',
