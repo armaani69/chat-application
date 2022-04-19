@@ -1,7 +1,115 @@
 import React from 'react';
 
 const Chats = () => {
-  return <div></div>;
+  //   const activeUsers: number[] = Array.from(Array(20).keys());
+  //   const messages: number[] = Array.from(Array(40).keys());
+
+  const sentMessages: number[] = Array.from(Array(5).keys());
+  const receivedMessages: number[] = Array.from(Array(5).keys());
+
+  const randomAvatarGenerator = () => {
+    let avatars = `https://avatars.dicebear.com/api/avataaars/${Math.random()}.svg`;
+    return avatars;
+  };
+
+  return (
+    <div>
+      <div className='pl-4 pr-12 py-5 bg-slate-200'>
+        <div className='p-8 bg-white font-workSans rounded-modalRadius shadow-lg'>
+          <div className='flex flex-col justify-center'>
+            <div className='flex mx-4 rounded rounded-3xl items-center mb-4 text-gray-700'>
+              <div className='bg-white ml-4 w-16 h-16 rounded-full flex justify-center items-center border-2 border-green-500 p-1'>
+                <img
+                  className='rounded-full bg-blue-100'
+                  src={randomAvatarGenerator()}
+                  alt='avatar'
+                />
+              </div>
+              <div className='p-5'>
+                <h4 className='text-2xl'>Armaani</h4>
+                <p className='text-green-600 '>Online</p>
+              </div>
+            </div>
+          </div>
+
+          <div className='h-chatBody overflow-x-auto'>
+            <div className='mt-6'>
+              {sentMessages.map((_, i: number) => (
+                <div key={i}>
+                  <div className='mb-6'>
+                    <div className='flex mx-4 items-end  mb-4'>
+                      <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-blue-500 p-1 shadow-xl'>
+                        <img
+                          className='rounded-full bg-blue-100'
+                          src={randomAvatarGenerator()}
+                          alt='avatar'
+                        />
+                      </div>
+                      <div className='ml-5 p-5 bg-blue-200 rounded-full w-[65%] text-lg shadow-xl'>
+                        <p>
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Placeat quasi cum, ut omnis est magni
+                          necessitatibus fugiat hic provident perferendis!
+                        </p>
+                      </div>
+                      <div className='ml-5'>
+                        <h4 className='text-gray-700 text-xl'>
+                          {new Date().getHours()}:{new Date().getMinutes()}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className='mt-12'>
+              {receivedMessages.map((_, i: number) => (
+                <div key={i}>
+                  <div className='mb-6'>
+                    <div className='flex flex-row-reverse mx-4 items-end mb-5'>
+                      <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-blue-500 p-1 shadow-xl'>
+                        <img
+                          className='rounded-full bg-blue-100'
+                          src={randomAvatarGenerator()}
+                          alt='avatar'
+                        />
+                      </div>
+                      <div className='p-5 bg-gray-200 rounded-full w-[65%] text-lg shadow-lg'>
+                        <p>
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Placeat quasi cum, ut omnis est magni
+                          necessitatibus fugiat hic provident perferendis!
+                        </p>
+                      </div>
+                      <div className='mr-5'>
+                        <h4 className='text-gray-700 text-xl'>
+                          {new Date().getHours()}:{new Date().getMinutes()}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className='mt-6 text-white'>
+            <form
+              action=''
+              className='w-full flex flex-col justify-center items-center'
+            >
+              <input
+                className='w-[95%] px-8 py-4 rounded rounded-xl  text-xl shadow-2xl outline-none bg-violet-600 text-white placeholder-white'
+                type='text'
+                placeholder='Type Your Message Here '
+              />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Chats;
