@@ -30,7 +30,7 @@ const ChatList = () => {
               className='w-full flex flex-col justify-center items-center'
             >
               <input
-                className='w-[95%] px-8 py-4 rounded rounded-xl bg-gray-100 text-xl font-light shadow-md outline-none text-gray-700 placeholder-gray-700'
+                className='w-[95%] px-8 py-4 rounded rounded-xl bg-gray-100 text-xl font-light shadow-lg outline-none text-gray-700 placeholder-gray-700'
                 type='text'
                 placeholder='Search Your Contacts'
               />
@@ -81,7 +81,7 @@ const ChatList = () => {
             <div className='flex flex-col w-full overflow-y-auto h-128'>
               {messages.map((_, i: number) => (
                 <div key={i}>
-                  <div className='flex bg-blue-200 mx-4 rounded rounded-3xl items-center mb-4 shadow-lg'>
+                  <div className='flex bg-blue-200 mx-4 rounded rounded-3xl items-center mb-4 shadow-lg min-h-chatList'>
                     <div className='bg-white ml-4 min-w-circle h-20 rounded-full flex justify-center items-center border-2 border-blue-500 p-1'>
                       <img
                         className='rounded-full bg-lime-200'

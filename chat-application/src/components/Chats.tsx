@@ -1,9 +1,6 @@
 import React from 'react';
 
 const Chats = () => {
-  //   const activeUsers: number[] = Array.from(Array(20).keys());
-  //   const messages: number[] = Array.from(Array(40).keys());
-
   const sentMessages: number[] = Array.from(Array(5).keys());
   const receivedMessages: number[] = Array.from(Array(5).keys());
 
@@ -45,8 +42,8 @@ const Chats = () => {
                           alt='avatar'
                         />
                       </div>
-                      <div className='ml-5 p-5 bg-blue-200 rounded-full w-[65%] text-lg shadow-xl'>
-                        <p>
+                      <div className='ml-5 p-5 bg-blue-400 rounded-full w-[65%] text-lg shadow-xl'>
+                        <p className='text-white font-medium'>
                           Lorem ipsum dolor, sit amet consectetur adipisicing
                           elit. Placeat quasi cum, ut omnis est magni
                           necessitatibus fugiat hic provident perferendis!
@@ -59,23 +56,17 @@ const Chats = () => {
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
 
-            <div className='mt-12'>
-              {receivedMessages.map((_, i: number) => (
-                <div key={i}>
                   <div className='mb-6'>
                     <div className='flex flex-row-reverse mx-4 items-end mb-5'>
-                      <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-blue-500 p-1 shadow-xl'>
+                      <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-gray-500 p-1 shadow-xl'>
                         <img
                           className='rounded-full bg-blue-100'
                           src={randomAvatarGenerator()}
                           alt='avatar'
                         />
                       </div>
-                      <div className='p-5 bg-gray-200 rounded-full w-[65%] text-lg shadow-lg'>
+                      <div className='p-5 bg-gray-300 rounded-full w-[65%] text-lg shadow-lg'>
                         <p>
                           Lorem ipsum dolor, sit amet consectetur adipisicing
                           elit. Placeat quasi cum, ut omnis est magni
@@ -92,6 +83,36 @@ const Chats = () => {
                 </div>
               ))}
             </div>
+
+            {/* <div className='mt-12'>
+              {receivedMessages.map((_, i: number) => (
+                <div key={i}>
+                  <div className='mb-6'>
+                    <div className='flex flex-row-reverse mx-4 items-end mb-5'>
+                      <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-gray-500 p-1 shadow-xl'>
+                        <img
+                          className='rounded-full bg-blue-100'
+                          src={randomAvatarGenerator()}
+                          alt='avatar'
+                        />
+                      </div>
+                      <div className='p-5 bg-gray-300 rounded-full w-[65%] text-lg shadow-lg'>
+                        <p>
+                          Lorem ipsum dolor, sit amet consectetur adipisicing
+                          elit. Placeat quasi cum, ut omnis est magni
+                          necessitatibus fugiat hic provident perferendis!
+                        </p>
+                      </div>
+                      <div className='mr-5'>
+                        <h4 className='text-gray-700 text-xl'>
+                          {new Date().getHours()}:{new Date().getMinutes()}
+                        </h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div> */}
           </div>
 
           <div className='mt-6 text-white'>

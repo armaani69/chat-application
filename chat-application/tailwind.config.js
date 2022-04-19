@@ -17,6 +17,7 @@ module.exports = {
       },
       minHeight: {
         circle: '5rem',
+        chatList: '7rem',
       },
       borderRadius: {
         modalRadius: '3.5rem',
