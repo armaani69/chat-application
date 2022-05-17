@@ -1,24 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+// import { randomAvatarGenerator } from '../common/helper';
+import axios, { AxiosResponse } from 'axios';
+import { SenderMessageDetails } from '../interface';
 
 const Chats = () => {
-  const sentMessages: number[] = Array.from(Array(5).keys());
-  const receivedMessages: number[] = Array.from(Array(5).keys());
+  //   let hours: number = new Date().getHours();
+  //   let minutes: string | number =
+  //     Number(new Date().getMinutes()) < 10
+  //       ? 0 + String(new Date().getMinutes())
+  //       : new Date().getMinutes();
 
-  const randomAvatarGenerator = () => {
-    let avatars = `https://avatars.dicebear.com/api/avataaars/${Math.random()}.svg`;
-    return avatars;
+  const baseUrl: string = 'http://localhost:8080';
+
+  const [senderMessageDetails, setSenderMessageDetails] =
+    useState<SenderMessageDetails[]>();
+
+  useEffect(() => {
+    axios
+      .get(`${baseUrl}/sendMessage`)
+      .then((response: AxiosResponse) =>
+        setSenderMessageDetails(response.data),
+      );
+  }, []);
+
+  console.log('message data is', senderMessageDetails);
+
+  const [messageInput, setMessageInput] = useState<string>('');
+
+  const sendMessage = async () => {
+    await axios.post(`${baseUrl}/sendMessage`, {
+      message: messageInput,
+      time: new Date().toLocaleTimeString(),
+      avatarNumber: '2',
+    });
   };
+
+  console.log(typeof new Date().toLocaleTimeString());
 
   return (
     <div>
       <div className='pl-4 pr-12 py-5 bg-slate-200'>
         <div className='p-8 bg-white font-workSans rounded-modalRadius shadow-lg'>
-          <div className='flex flex-col justify-center bg-green-100  rounded-modalRadius mb-6'>
+          <div className='flex flex-col justify-center bg-green-100 rounded-modalRadius mb-6'>
             <div className='flex mx-4 rounded rounded-3xl items-center text-gray-700'>
               <div className='bg-white ml-4 w-16 h-16 rounded-full flex justify-center items-center border-2 border-green-500 p-1'>
                 <img
                   className='rounded-full bg-blue-100'
-                  src={randomAvatarGenerator()}
+                  src={`https://avatars.dicebear.com/api/avataaars/2.svg`}
                   alt='avatar'
                 />
               </div>
@@ -31,107 +59,74 @@ const Chats = () => {
 
           <div className='h-chatBody overflow-x-auto'>
             <div className='mt-4'>
-              {sentMessages.map((_, i: number) => (
-                <div key={i}>
-                  <div className='mb-6'>
-                    <div className='flex mx-4 items-end mb-4'>
-                      <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-blue-500 p-1 shadow-xl'>
-                        <img
-                          className='rounded-full bg-blue-100'
-                          src={randomAvatarGenerator()}
-                          alt='avatar'
-                        />
-                      </div>
-                      <div className=' bg-blue-400 rounded-full w-[65%] text-lg shadow-xl'>
-                        <p className='ml-5 text-white font-medium p-6'>
-                          Lorem ipsum dolor sit amet consectetur adipisicing
-                          elit. Tempore amet incidunt libero ratione ut ab
-                          nostrum veritatis ex at. Voluptatum, quis ratione iure
-                          natus, et, saepe sed at repellendus ad voluptates
-                          perspiciatis. Cupiditate non, maxime explicabo dolores
-                          debitis porro ad vitae eveniet sint adipisci error
-                        </p>
-                      </div>
-                      <div className='ml-5'>
-                        <h4 className='text-gray-700 text-xl'>
-                          {new Date().getHours()}:{new Date().getMinutes()}
-                        </h4>
+              <div>
+                {senderMessageDetails?.map((data: SenderMessageDetails) => (
+                  <div key={String(data.id)}>
+                    <div className='mb-6'>
+                      <div className='flex mx-4 items-end mb-4'>
+                        <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-blue-500 p-1 shadow-xl'>
+                          <img
+                            className='rounded-full bg-blue-100'
+                            src={`https://avatars.dicebear.com/api/avataaars/${data.avatar}.svg`}
+                            alt='avatar'
+                          />
+                        </div>
+                        <div className='ml-5 bg-blue-400 rounded-chatMessageRadius w-[65%] text-lg shadow-xl px-6 py-1'>
+                          <p className='text-white font-medium px-2 py-1'>
+                            {data.message}
+                          </p>
+                        </div>
+                        <div className='ml-5'>
+                          <h4 className='text-gray-700 text-xl'>{data.time}</h4>
+                        </div>
                       </div>
                     </div>
                   </div>
+                ))}
 
-                  <div className='mb-6'>
-                    <div className='flex flex-row-reverse mx-4 items-end mb-5'>
-                      <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-gray-500 p-1 shadow-xl'>
-                        <img
-                          className='rounded-full bg-blue-100'
-                          src={randomAvatarGenerator()}
-                          alt='avatar'
-                        />
-                      </div>
-                      <div className='bg-gray-300 rounded-full w-[65%] text-lg shadow-lg'>
-                        <p className='ml-5 font-medium p-6'>
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Placeat quasi cum, ut omnis est magni
-                          necessitatibus fugiat hic provident perferendis!
-                          dolor, sit amet consectetur adipisicing elit. Placeat
-                          quasi cum, ut omnis est magni necessitatibus fugiat
-                          hic provident perferendis! dolor, sit amet consectetur
-                          adipisicing elit. Placeat quasi cum, ut omnis est
-                          magni necessitatibus fugiat hic provident perferendis!
-                        </p>
-                      </div>
-                      <div className='mr-5'>
-                        <h4 className='text-gray-700 text-xl'>
-                          {new Date().getHours()}:{new Date().getMinutes()}
-                        </h4>
-                      </div>
+                {/* <div className='mb-6'>
+                  <div className='flex flex-row-reverse mx-4 items-end mb-5'>
+                    <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-gray-400 p-1 shadow-xl'>
+                      <img
+                        className='rounded-full bg-green-200'
+                        src={randomAvatarGenerator()}
+                        alt='avatar'
+                      />
+                    </div>
+                    <div className='px-6 py-1 ml-5 bg-gray-300 rounded-chatMessageRadius w-[65%] text-lg shadow-lg'>
+                      <p className='font-medium px-2 py-1'>
+                        Lorem ipsum dolor, sit amet consectetur adipisicing
+                        elit. Placeat quasi cum, ut omnis est magni
+                        necessitatibus fugiat hic provident perferendis! dolor,
+                        sit amet consectetur adipisicing elit. Placeat ipsum
+                        dolor sit amet consectetur adipisicing elit. Tempore
+                        amet incidunt libero ratione ut ab nostrum veritatis ex
+                        at. Voluptatum, quis ratione iure t.
+                      </p>
+                    </div>
+                    <div className='mr-5'>
+                      <h4 className='text-gray-700 text-xl'>
+                        {hours}:{minutes}
+                      </h4>
                     </div>
                   </div>
-                </div>
-              ))}
+                </div> */}
+              </div>
             </div>
-
-            {/* <div className='mt-12'>
-              {receivedMessages.map((_, i: number) => (
-                <div key={i}>
-                  <div className='mb-6'>
-                    <div className='flex flex-row-reverse mx-4 items-end mb-5'>
-                      <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-gray-500 p-1 shadow-xl'>
-                        <img
-                          className='rounded-full bg-blue-100'
-                          src={randomAvatarGenerator()}
-                          alt='avatar'
-                        />
-                      </div>
-                      <div className='p-5 bg-gray-300 rounded-full w-[65%] text-lg shadow-lg'>
-                        <p>
-                          Lorem ipsum dolor, sit amet consectetur adipisicing
-                          elit. Placeat quasi cum, ut omnis est magni
-                          necessitatibus fugiat hic provident perferendis!
-                        </p>
-                      </div>
-                      <div className='mr-5'>
-                        <h4 className='text-gray-700 text-xl'>
-                          {new Date().getHours()}:{new Date().getMinutes()}
-                        </h4>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div> */}
           </div>
 
           <div className='mt-6 text-white'>
             <form
               action=''
               className='w-full flex flex-col justify-center items-center'
+              onSubmit={sendMessage}
             >
               <input
-                className='w-[95%] px-8 py-4 rounded rounded-xl  text-xl shadow-2xl outline-none bg-violet-600 text-white placeholder-white'
+                className='w-[95%] px-8 py-4 rounded rounded-xl  text-xl outline-none bg-violet-600 text-white placeholder-white drop-shadow-xl shadow-xl'
                 type='text'
-                placeholder='Type Your Message Here '
+                placeholder='Type Your Message Here'
+                value={messageInput}
+                onChange={(e) => setMessageInput(e.target.value)}
               />
             </form>
           </div>

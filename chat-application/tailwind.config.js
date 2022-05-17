@@ -1,5 +1,6 @@
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  important: true,
   theme: {
     extend: {
       fontFamily: {
@@ -21,6 +22,7 @@ module.exports = {
       },
       borderRadius: {
         modalRadius: '3.5rem',
+        chatMessageRadius: '3rem',
       },
     },
   },

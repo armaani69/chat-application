@@ -1,21 +1,25 @@
 import React from 'react';
+import { randomAvatarGenerator, modalStyles } from '../common/helper';
+import Modal from 'react-modal';
+import closeButton from '../images/svg/close-modal.svg';
+import addContact from '../images/svg/add_contact.svg';
+import ReactTooltip from 'react-tooltip';
 
-const ChatList = () => {
-  const activeUsers: number[] = Array.from(Array(20).keys());
-  const messages: number[] = Array.from(Array(40).keys());
-
-  const randomAvatarGenerator = () => {
-    let avatars = `https://avatars.dicebear.com/api/avataaars/${Math.random()}.svg`;
-    return avatars;
+const ChatList = ({
+  activeUsers,
+  messages,
+}: {
+  activeUsers: number[];
+  messages: number[];
+}) => {
+  const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
+  const openModal = () => {
+    setIsOpen(true);
   };
 
-  //   const randomNameGenerator = () => {
-  //     {
-  //       fetch('https://api.name-fake.com/ukrainian-ukraine/male')
-  //         .then((response) => response.json())
-  //         .then((data) => console.log(data));
-  //     }
-  //   };
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div>
@@ -25,6 +29,55 @@ const ChatList = () => {
             <h3 className='font-semibold text-3xl py-11 text-blue-500'>
               Message
             </h3>
+            <img
+              src={addContact}
+              alt='add-contact'
+              className='absolute left-1/4 top-24'
+              style={{ width: '45px' }}
+              onClick={openModal}
+              data-tip='Create a contact'
+              data-effect='solid'
+            />
+            <ReactTooltip
+              arrowColor='green'
+              className='px-1 py-0 bg-green-700 text-white text-base font-normal font-workSans '
+            />
+
+            <Modal isOpen={modalIsOpen} style={modalStyles}>
+              <div>
+                <form
+                  action='contact'
+                  className='flex flex-col justify-start items-start'
+                >
+                  <div className='flex justify-between w-full'>
+                    <label
+                      className='font-medium font-workSans text-2xl text-blue-500'
+                      htmlFor='contact'
+                    >
+                      Would you like to save a contact?
+                    </label>
+                    <img
+                      src={closeButton}
+                      style={{ width: '35px' }}
+                      alt='close modal button'
+                      onClick={closeModal}
+                      className='p-1 rounded hover:shadow-inner hover:shadow-gray-400'
+                    />
+                  </div>
+
+                  <input
+                    className='w-3/4 shadow-lg font-workSans text-lg bg-gray-100 outline-none font-light border rounded rounded-xl px-5 py-2 mt-4 placeholder:text-gray-700 placeholder:font-workSans text-gray-700'
+                    type='text'
+                    placeholder='Input the contact name'
+                    name='contact'
+                  />
+                  <button className='border-black font-workSans border font-light text-white px-3 py-1 bg-black rounded hover:text-black hover:bg-white mt-6'>
+                    Save Contact
+                  </button>
+                </form>
+              </div>
+            </Modal>
+
             <form
               action=''
               className='w-full flex flex-col justify-center items-center'
@@ -91,9 +144,11 @@ const ChatList = () => {
                     </div>
                     <div className='p-5'>
                       <h4>Armaani</h4>
-                      <p className='font-light'>
+                      <p className='font-light truncate w-80'>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
-                        elit.
+                        elit. Lorem ipsum, dolor sit amet consectetur
+                        adipisicing elit. Lorem ipsum, dolor sit amet
+                        consectetur adipisicing elit.
                       </p>
                     </div>
                   </div>
