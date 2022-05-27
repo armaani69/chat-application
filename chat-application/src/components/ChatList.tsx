@@ -4,6 +4,9 @@ import Modal from 'react-modal';
 import closeButton from '../images/svg/close-modal.svg';
 import addContact from '../images/svg/add_contact.svg';
 import ReactTooltip from 'react-tooltip';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ChatList = ({
   activeUsers,
@@ -12,7 +15,12 @@ const ChatList = ({
   activeUsers: number[];
   messages: number[];
 }) => {
+  const baseUrl: string = 'http://localhost:8080';
+
   const [modalIsOpen, setIsOpen] = React.useState<boolean>(false);
+  const [contactData, setContactData] = React.useState<any>();
+  const [contact, setContact] = React.useState<string>('');
+
   const openModal = () => {
     setIsOpen(true);
   };
@@ -20,6 +28,38 @@ const ChatList = ({
   const closeModal = () => {
     setIsOpen(false);
   };
+
+  React.useEffect(() => {
+    console.log('contacts requested');
+    axios
+      .get(`${baseUrl}/getContacts`)
+      .then((response) => setContactData(response.data));
+  }, []);
+
+  const createContact = async () => {
+    try {
+      axios.post(`${baseUrl}/createContact`, {
+        contactName: contact,
+        contactImageString: Math.random(),
+      });
+      contactSuccessToast();
+    } catch (err) {
+      contactErrorToast();
+      console.log(err);
+    }
+  };
+
+  const contactSuccessToast = () => {
+    console.log('Success Toast called!');
+    toast.success('Contact Successfully Created!');
+  };
+
+  const handleContactInput = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setContact(e.currentTarget.value);
+  };
+
+  const contactErrorToast = () => toast.error('Error in Creating Contact');
 
   return (
     <div>
@@ -70,8 +110,13 @@ const ChatList = ({
                     type='text'
                     placeholder='Input the contact name'
                     name='contact'
+                    value={contact}
+                    onChange={(e) => handleContactInput(e)}
                   />
-                  <button className='border-black font-workSans border font-light text-white px-3 py-1 bg-black rounded hover:text-black hover:bg-white mt-6'>
+                  <button
+                    onClick={createContact}
+                    className='border-black font-workSans border font-light text-white px-3 py-1 bg-black rounded hover:text-black hover:bg-white mt-6'
+                  >
                     Save Contact
                   </button>
                 </form>
@@ -103,7 +148,7 @@ const ChatList = ({
                 ({activeUsers.length})
               </span>
             </h3>
-            <div className='flex overflow-x-auto max-w-full'>
+            <div className='flex flex-shrink-0 overflow-x-auto w-full'>
               {activeUsers.map((_, i: number) => (
                 <div key={i}>
                   <div className='bg-white min-w-circle h-20 rounded-full flex justify-center items-center shadow-xl border-2 border-green-500 p-1 mx-3'>
@@ -128,22 +173,22 @@ const ChatList = ({
                     : 'ml-2 text-black'
                 }
               >
-                ({messages.length})
+                ({contactData?.length})
               </span>
             </h3>
             <div className='flex flex-col w-full overflow-y-auto h-128'>
-              {messages.map((_, i: number) => (
-                <div key={i}>
+              {contactData?.reverse().map((data: any) => (
+                <div key={data?.id}>
                   <div className='flex bg-blue-200 mx-4 rounded rounded-3xl items-center mb-4 shadow-lg min-h-chatList'>
                     <div className='bg-white ml-4 min-w-circle h-20 rounded-full flex justify-center items-center border-2 border-blue-500 p-1'>
                       <img
                         className='rounded-full bg-lime-200'
-                        src={randomAvatarGenerator()}
+                        src={`https://avatars.dicebear.com/api/avataaars/${data?.contactImageString}.svg`}
                         alt='avatar'
                       />
                     </div>
                     <div className='p-5'>
-                      <h4>Armaani</h4>
+                      <h4 className='capitalize'>{data?.contactName}</h4>
                       <p className='font-light truncate w-80'>
                         Lorem ipsum, dolor sit amet consectetur adipisicing
                         elit. Lorem ipsum, dolor sit amet consectetur
@@ -158,6 +203,7 @@ const ChatList = ({
           </div>
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

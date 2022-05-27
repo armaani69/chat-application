@@ -12,6 +12,7 @@ module.exports = {
       },
       minWidth: {
         circle: '5rem',
+        usersOnlineContainer: '30rem',
       },
       maxWidth: {
         activeUsersRow: '50rem',

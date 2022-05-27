@@ -17,13 +17,11 @@ const Chats = () => {
 
   useEffect(() => {
     axios
-      .get(`${baseUrl}/sendMessage`)
+      .get(`${baseUrl}/getMessages`)
       .then((response: AxiosResponse) =>
         setSenderMessageDetails(response.data),
       );
   }, []);
-
-  console.log('message data is', senderMessageDetails);
 
   const [messageInput, setMessageInput] = useState<string>('');
 
@@ -67,7 +65,7 @@ const Chats = () => {
                         <div className='bg-white ml-4 w-12 h-12 rounded-full flex justify-center items-center border-2 border-blue-500 p-1 shadow-xl'>
                           <img
                             className='rounded-full bg-blue-100'
-                            src={`https://avatars.dicebear.com/api/avataaars/${data.avatar}.svg`}
+                            src={`https://avatars.dicebear.com/api/avataaars/${data?.avatarNumber}.svg`}
                             alt='avatar'
                           />
                         </div>
